@@ -1,0 +1,103 @@
+USE [CentroMedico]
+GO
+/****** Object:  Table [dbo].[Ciudades]    Script Date: 01/02/2024 15:46:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Ciudades](
+	[CiudadID] [int] IDENTITY(1,1) NOT NULL,
+	[NombreCiudad] [varchar](50) NOT NULL,
+	[DepartamentoID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CiudadID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Departamentos]    Script Date: 01/02/2024 15:46:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Departamentos](
+	[DepartamentoID] [int] IDENTITY(1,1) NOT NULL,
+	[NombreDepartamento] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[DepartamentoID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Pacientes]    Script Date: 01/02/2024 15:46:48 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Pacientes](
+	[PacienteID] [int] IDENTITY(1,1) NOT NULL,
+	[Nombres] [varchar](50) NOT NULL,
+	[Apellidos] [varchar](50) NOT NULL,
+	[TipoDocumento] [varchar](20) NOT NULL,
+	[NumeroDocumento] [varchar](20) NOT NULL,
+	[FechaNacimiento] [date] NOT NULL,
+	[CiudadResidencia] [varchar](50) NOT NULL,
+	[DepartamentoResidencia] [varchar](50) NOT NULL,
+	[DepartamentoID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[PacienteID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[Ciudades] ON 
+GO
+INSERT [dbo].[Ciudades] ([CiudadID], [NombreCiudad], [DepartamentoID]) VALUES (1, N'Bogotá', 1)
+GO
+INSERT [dbo].[Ciudades] ([CiudadID], [NombreCiudad], [DepartamentoID]) VALUES (2, N'Soacha', 1)
+GO
+SET IDENTITY_INSERT [dbo].[Ciudades] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Departamentos] ON 
+GO
+INSERT [dbo].[Departamentos] ([DepartamentoID], [NombreDepartamento]) VALUES (1, N'Cundinamarca')
+GO
+SET IDENTITY_INSERT [dbo].[Departamentos] OFF
+GO
+SET IDENTITY_INSERT [dbo].[Pacientes] ON 
+GO
+INSERT [dbo].[Pacientes] ([PacienteID], [Nombres], [Apellidos], [TipoDocumento], [NumeroDocumento], [FechaNacimiento], [CiudadResidencia], [DepartamentoResidencia], [DepartamentoID]) VALUES (1, N'Juan', N'Pérez', N'C. de ciudadanía', N'123456789', CAST(N'1990-05-15' AS Date), N'Bogotá', N'Cundinamarca', 1)
+GO
+INSERT [dbo].[Pacientes] ([PacienteID], [Nombres], [Apellidos], [TipoDocumento], [NumeroDocumento], [FechaNacimiento], [CiudadResidencia], [DepartamentoResidencia], [DepartamentoID]) VALUES (3, N'Juan', N'Pérez', N'C. de ciudadanía', N'123456788', CAST(N'1990-05-15' AS Date), N'Bogotá', N'Cundinamarca', 1)
+GO
+INSERT [dbo].[Pacientes] ([PacienteID], [Nombres], [Apellidos], [TipoDocumento], [NumeroDocumento], [FechaNacimiento], [CiudadResidencia], [DepartamentoResidencia], [DepartamentoID]) VALUES (7, N'Julian', N'Castillo', N'C. de ciudadanía', N'1004', CAST(N'2024-02-01' AS Date), N'Bogotá', N'Cundinamarca', NULL)
+GO
+INSERT [dbo].[Pacientes] ([PacienteID], [Nombres], [Apellidos], [TipoDocumento], [NumeroDocumento], [FechaNacimiento], [CiudadResidencia], [DepartamentoResidencia], [DepartamentoID]) VALUES (8, N'Sebastian', N'Naranjo', N'C. de ciudadanía', N'43553', CAST(N'2024-02-01' AS Date), N'Bogotá', N'Cundinamarca', NULL)
+GO
+INSERT [dbo].[Pacientes] ([PacienteID], [Nombres], [Apellidos], [TipoDocumento], [NumeroDocumento], [FechaNacimiento], [CiudadResidencia], [DepartamentoResidencia], [DepartamentoID]) VALUES (9, N'Sebastian', N'Naranjo', N'C. de ciudadanía', N'4543645234', CAST(N'2024-02-01' AS Date), N'Bogotá', N'Cundinamarca', NULL)
+GO
+SET IDENTITY_INSERT [dbo].[Pacientes] OFF
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ_NumeroDocumento]    Script Date: 01/02/2024 15:46:48 ******/
+ALTER TABLE [dbo].[Pacientes] ADD  CONSTRAINT [UQ_NumeroDocumento] UNIQUE NONCLUSTERED 
+(
+	[NumeroDocumento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ_PacienteID]    Script Date: 01/02/2024 15:46:48 ******/
+ALTER TABLE [dbo].[Pacientes] ADD  CONSTRAINT [UQ_PacienteID] UNIQUE NONCLUSTERED 
+(
+	[TipoDocumento] ASC,
+	[NumeroDocumento] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Ciudades]  WITH CHECK ADD FOREIGN KEY([DepartamentoID])
+REFERENCES [dbo].[Departamentos] ([DepartamentoID])
+GO
+ALTER TABLE [dbo].[Pacientes]  WITH CHECK ADD FOREIGN KEY([DepartamentoID])
+REFERENCES [dbo].[Departamentos] ([DepartamentoID])
+GO
